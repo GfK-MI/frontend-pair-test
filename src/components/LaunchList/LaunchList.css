@@ -1,0 +1,53 @@
+.List ul {
+  list-style: none;
+  padding: 0;
+}
+
+.List li {
+  border-bottom: 1px solid gray;
+}
+
+.List li:last-child {
+  border-bottom: none;
+}
+
+.List-controls {
+  padding: 0.5em;
+  background: #ddd;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.List-control {
+  display: flex;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.List-control--search {
+  margin-right: auto;
+}
+
+.List-control label {
+  margin-right: 0.25rem;
+}
+
+.List-control input,
+.List-control select,
+.List-control button {
+  display: block;
+  padding: 0.5em;
+  margin-left: 0.25em;
+}
+
+.List-entry-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.List-entry-body {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

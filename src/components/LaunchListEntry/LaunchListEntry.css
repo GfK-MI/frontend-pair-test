@@ -1,0 +1,12 @@
+.Entry-title--clickable {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.Entry-body {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

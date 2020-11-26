@@ -8,12 +8,13 @@ It consumes **SpaceX's API**. Available here: https://api.spacex.land/graphql/.
 
 You are required to implement the following requirements in any given order.
 
-- [ ] Add support for sorting by mission name (asc/desc).
-- [ ] Add support for sorting by mission launch date (asc/desc).
-- [ ] Add support for filtering missions by name.
-- [ ] Update dates to use `dd/mm/yyyy` format in the user's TZ.
+- [x] Add support for sorting by mission name (asc/desc).
+- [x] Add support for sorting by mission launch date (asc/desc).
+- [x] Add support for filtering missions by name.
+- [x] Update dates to use `dd/mm/yyyy` format in the user's TZ.
 
 ## Useful links
+
 - [React Testing Library Cheatsheet](https://testing-library.com/docs/react-testing-library/cheatsheet/)
 - [DOM Testing Library Cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/)
 - [HTML Elements ARIA Roles List](https://www.w3.org/TR/html-aria/#docconformance)

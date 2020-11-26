@@ -1,0 +1,20 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 10vh;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.App-main {
+  padding: 1rem;
+}
+
+@media all and (min-width: 1032px) {
+  .App-header,
+  .App-main {
+    padding: 0 calc(50vw - 500px);
+  }
+}
