@@ -32,7 +32,11 @@ const LaunchList: React.FC<Props> = ({limit = 10}) => {
                         Sort by
                     </label>
                     <select name="sortOrder" id="sortOrder" data-testid="sortOrder">
-                        <option value="">-</option>
+                        <option
+                            value="name-asc"
+                        >
+                            Mission Name (asc)
+                        </option>
                     </select>
                 </div>
                 <div className="App-list-control">
