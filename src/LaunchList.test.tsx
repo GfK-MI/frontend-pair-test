@@ -97,6 +97,13 @@ test('sort by dropdown dropdown contains mission name (ascending)', async () => 
   expect(option.value).toBe('name-asc');
 });
 
+test('sort by dropdown dropdown contains mission name (descending)', async () => {
+  render(<LaunchList/>);
+
+  const option = await screen.getByRole('option', { name: 'Mission Name (desc)' }) as HTMLOptionElement;
+  expect(option.value).toBe('name-desc');
+});
+
 test('renders search input', async () => {
   render(<LaunchList/>);
 
