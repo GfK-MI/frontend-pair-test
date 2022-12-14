@@ -37,6 +37,11 @@ const LaunchList: React.FC<Props> = ({limit = 10}) => {
                         >
                             Mission Name (asc)
                         </option>
+                        <option
+                            value="name-desc"
+                        >
+                            Mission Name (desc)
+                        </option>
                     </select>
                 </div>
                 <div className="App-list-control">
