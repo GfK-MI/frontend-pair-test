@@ -90,6 +90,13 @@ test('renders sort by dropdown', async () => {
   expect(dropdownElement).toBeInTheDocument();
 });
 
+test('sort by dropdown dropdown contains mission name (ascending)', async () => {
+  render(<LaunchList/>);
+
+  const option = await screen.getByRole('option', { name: 'Mission Name (asc)' }) as HTMLOptionElement;
+  expect(option.value).toBe('name-asc');
+});
+
 test('renders search input', async () => {
   render(<LaunchList/>);
 
