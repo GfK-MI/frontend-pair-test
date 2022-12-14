@@ -9,6 +9,26 @@ type Props = {
     limit?: number
 }
 
+type OrderOption = 'name-asc' | 'name-desc';
+
+type OrderOptions = {
+    value: OrderOption,
+    name: string,
+}[];
+
+const orderOptions: OrderOptions = [
+    {
+        value: 'name-asc',
+        name: 'Mission Name (asc)',
+    },
+    {
+        value: 'name-desc',
+        name: 'Mission Name (desc)',
+    },
+];
+
+const defaultOrderValue: OrderOption = 'name-desc';
+
 const LaunchList: React.FC<Props> = ({limit = 10}) => {
     const [entries, setEntries] = React.useState<LaunchData[]>([]);
 
@@ -31,17 +51,20 @@ const LaunchList: React.FC<Props> = ({limit = 10}) => {
                     <label htmlFor="sortOrder">
                         Sort by
                     </label>
-                    <select name="sortOrder" id="sortOrder" data-testid="sortOrder">
-                        <option
-                            value="name-asc"
-                        >
-                            Mission Name (asc)
-                        </option>
-                        <option
-                            value="name-desc"
-                        >
-                            Mission Name (desc)
-                        </option>
+                    <select name="sortOrder" id="sortOrder" data-testid="sortOrder" defaultValue="">
+                        <option disabled value="">-</option>
+                        {
+                            orderOptions.map(optionPair => {
+                                return (
+                                    <option
+                                        key={optionPair.value}
+                                        value={optionPair.value}
+                                    >
+                                        {optionPair.name}
+                                    </option>
+                                );
+                            })
+                        }
                     </select>
                 </div>
                 <div className="App-list-control">
