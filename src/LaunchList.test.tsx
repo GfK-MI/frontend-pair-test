@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 
 import { LaunchData } from './types';
 import LaunchList from './LaunchList';
 
 import { fetchPastLaunches } from './api';
+import userEvent from '@testing-library/user-event';
 jest.mock('./api');
 
 const mockLaunches: LaunchData[] = [
@@ -102,6 +103,20 @@ test('sort by dropdown dropdown contains mission name (descending)', async () =>
 
   const option = await screen.getByRole('option', { name: 'Mission Name (desc)' }) as HTMLOptionElement;
   expect(option.value).toBe('name-desc');
+});
+
+test('changing sort by dropdown changes sort order', async () => {
+  render(<LaunchList />);
+  const dropdownElement = await screen.findByRole('combobox');
+  const launches = await screen.findAllByTestId('entryContainer');
+
+  expect(within(launches[2]).getByTestId('entryHeading').textContent).toBe('CRS-21')
+
+  act(() => {
+    userEvent.selectOptions(dropdownElement, 'name-desc');
+  });
+
+  expect(within(launches[2]).getByTestId('entryHeading').textContent).toBe('SXM-7')
 });
 
 test('renders search input', async () => {
