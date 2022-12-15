@@ -1,8 +1,8 @@
 import React from 'react';
-import { act, render, screen, within } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
 import { LaunchData } from './types';
-import LaunchList from './LaunchList';
+import LaunchList, { sortOptions } from './LaunchList';
 
 import { fetchPastLaunches } from './api';
 import userEvent from '@testing-library/user-event';
@@ -95,28 +95,26 @@ test('sort by dropdown dropdown contains mission name (ascending)', async () => 
   render(<LaunchList/>);
 
   const option = await screen.getByRole('option', { name: 'Mission Name (asc)' }) as HTMLOptionElement;
-  expect(option.value).toBe('name-asc');
+  expect(option.value).toBe('mission_name-asc');
 });
 
 test('sort by dropdown dropdown contains mission name (descending)', async () => {
   render(<LaunchList/>);
 
   const option = await screen.getByRole('option', { name: 'Mission Name (desc)' }) as HTMLOptionElement;
-  expect(option.value).toBe('name-desc');
+  expect(option.value).toBe('mission_name-desc');
 });
 
 test('changing sort by dropdown changes sort order', async () => {
   render(<LaunchList />);
   const dropdownElement = await screen.findByRole('combobox');
-  const launches = await screen.findAllByTestId('entryContainer');
-
-  expect(within(launches[2]).getByTestId('entryHeading').textContent).toBe('CRS-21')
 
   act(() => {
-    userEvent.selectOptions(dropdownElement, 'name-desc');
+    userEvent.selectOptions(dropdownElement, 'mission_name-asc');
   });
 
-  expect(within(launches[2]).getByTestId('entryHeading').textContent).toBe('SXM-7')
+  expect(fetchPastLaunches).toBeCalledTimes(2);
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortOptions[0])
 });
 
 test('renders search input', async () => {

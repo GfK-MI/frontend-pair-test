@@ -1,12 +1,17 @@
-import { LaunchData } from './types';
+import { LaunchData, SortObject } from './types';
 
-export async function fetchPastLaunches(limit: number): Promise<LaunchData[]> {
+export async function fetchPastLaunches(limit: number, sortRequest: SortObject | undefined): Promise<LaunchData[]> {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
+    let sortRequestString = '';
+
+    if (sortRequest) {
+        sortRequestString = `, sort: "${sortRequest.property}", order: "${sortRequest.order}"`;
+    }
 
     const body = JSON.stringify({
         query: `{
-            launchesPast(limit: ${limit}) {
+            launchesPast(limit: ${limit}${sortRequestString}) {
                 rocket {
                     rocket_name
                     second_stage {

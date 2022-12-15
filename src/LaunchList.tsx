@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 
-import { LaunchData } from './types';
+import { LaunchData, SortObject, SortOptions } from './types';
 
 import { fetchPastLaunches } from './api';
 import LaunchListEntry from './LaunchListEntry';
@@ -9,38 +9,38 @@ type Props = {
     limit?: number
 }
 
-type OrderOption = 'name-asc' | 'name-desc';
-
-type OrderOptions = {
-    value: OrderOption,
-    name: string,
-}[];
-
-const orderOptions: OrderOptions = [
-    {
-        value: 'name-asc',
+export const sortOptions: SortOptions = {
+    'mission_name-asc' : {
+        order: 'asc',
+        property: 'mission_name',
         name: 'Mission Name (asc)',
     },
-    {
-        value: 'name-desc',
+    'mission_name-desc': {
+        order: 'desc',
+        property: 'mission_name',
         name: 'Mission Name (desc)',
     },
-];
-
-const defaultOrderValue: OrderOption = 'name-desc';
+};
 
 const LaunchList: React.FC<Props> = ({limit = 10}) => {
     const [entries, setEntries] = React.useState<LaunchData[]>([]);
+    const [sortRequest, setSortRequest] = React.useState<SortObject | undefined>();
 
     React.useEffect(() => {
         const retrieveListItems = async () => {
-            const results = await fetchPastLaunches(limit);
-
-            setEntries(results)
+            const results = await fetchPastLaunches(limit, sortRequest);
+console.log(results)
+            setEntries(results);
         };
 
         retrieveListItems();
-    }, [setEntries, limit]);
+    }, [limit, sortRequest]);
+
+
+    const onSortChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
+        setSortRequest(sortOptions[event.target.value]);
+        console.log(event.target.value)
+    }
 
     return (
         <section className="App-list">
@@ -51,36 +51,43 @@ const LaunchList: React.FC<Props> = ({limit = 10}) => {
                     <label htmlFor="sortOrder">
                         Sort by
                     </label>
-                    <select name="sortOrder" id="sortOrder" data-testid="sortOrder" defaultValue="">
+                    <select
+                        name="sortOrder"
+                        id="sortOrder"
+                        data-testid="sortOrder"
+                        defaultValue=""
+                        onChange={onSortChange}
+                    >
                         <option disabled value="">-</option>
-                        {
-                            orderOptions.map(optionPair => {
-                                return (
-                                    <option
-                                        key={optionPair.value}
-                                        value={optionPair.value}
-                                    >
-                                        {optionPair.name}
-                                    </option>
-                                );
-                            })
-                        }
+                        {Object.keys(sortOptions).map(optionKey =>
+                            <option
+                                key={`${sortOptions[optionKey].property}-${sortOptions[optionKey].order}`}
+                                value={`${sortOptions[optionKey].property}-${sortOptions[optionKey].order}`}
+                            >
+                                {sortOptions[optionKey].name}
+                            </option>
+                        )}
                     </select>
                 </div>
                 <div className="App-list-control">
                     <label htmlFor="textSearch">
                         Search
                     </label>
-                    <input name="textSearch" id="textSearch"
+                    <input
+                        name="textSearch"
+                        id="textSearch"
                         placeholder="Type mission name..."
-                        data-testid="textSearch"/>
+                        data-testid="textSearch"
+                    />
                 </div>
             </div>
-            <ul>{
-                entries.map((entry) => <li key={entry.id}>
-                    <LaunchListEntry entry={entry}/>
-                </li>)
-            }</ul>
+            <ul>
+                {entries.map((entry) =>
+                    <li key={entry.id}>
+                        <LaunchListEntry entry={entry}/>
+                    </li>
+                )}
+            </ul>
         </section>
     )
 };
