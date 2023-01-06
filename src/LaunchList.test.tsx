@@ -131,6 +131,13 @@ test('sort by date dropdown dropdown contains launch date (ascending)', async ()
   expect(option.value).toBe('launch_date_utc-asc');
 });
 
+test('sort by date dropdown dropdown contains launch date (descending)', async () => {
+  render(<LaunchList/>);
+
+  const option = await screen.getByRole('option', { name: 'Launch Date (desc)' }) as HTMLOptionElement;
+  expect(option.value).toBe('launch_date_utc-desc');
+});
+
 test('renders search input', async () => {
   render(<LaunchList/>);
 
