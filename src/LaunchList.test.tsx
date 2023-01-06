@@ -84,10 +84,10 @@ test('renders past launches', async () => {
   expect(fetchPastLaunches).toBeCalledTimes(1);
 });
 
-test('renders sort by dropdown', async () => {
+test('renders sort by name dropdown', async () => {
   render(<LaunchList/>);
 
-  const dropdownElement = await screen.findByRole('combobox');
+  const dropdownElement = await (await screen.findByText('Mission Name (desc)'));
   expect(dropdownElement).toBeInTheDocument();
 });
 
@@ -115,6 +115,13 @@ test('changing sort by dropdown changes sort order', async () => {
 
   expect(fetchPastLaunches).toBeCalledTimes(2);
   expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortOptions[0])
+});
+
+test('renders sort by name dropdown', async () => {
+  render(<LaunchList/>);
+
+  const dropdownElement = await (await screen.findByText('Launch Date (desc)'));
+  expect(dropdownElement).toBeInTheDocument();
 });
 
 test('renders search input', async () => {
