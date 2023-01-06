@@ -23,12 +23,12 @@ export const sortByNameOptions: SortOptions = {
 };
 
 export const sortByDateOptions: SortOptions = {
-    'launch_date-asc' : {
+    'launch_date_utc-asc' : {
         order: 'asc',
         property: 'launch_date_utc',
         name: 'Launch Date (asc)',
     },
-    'launch_date-desc': {
+    'launch_date_utc-desc': {
         order: 'desc',
         property: 'launch_date_utc',
         name: 'Launch Date (desc)',
@@ -50,8 +50,14 @@ console.log(results)
     }, [limit, sortRequest]);
 
 
-    const onSortChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    const onSortByNameChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
         setSortRequest(sortByNameOptions[event.target.value]);
+        console.log(event.target.value)
+    }
+
+
+    const onSortByDateChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
+        setSortRequest(sortByDateOptions[event.target.value]);
         console.log(event.target.value)
     }
 
@@ -68,7 +74,7 @@ console.log(results)
                         id="sortOrder"
                         data-testid="sortOrder"
                         defaultValue=""
-                        onChange={onSortChange}
+                        onChange={onSortByNameChange}
                     >
                         <option disabled value="">-</option>
                         {Object.keys(sortByNameOptions).map(optionKey =>
@@ -86,7 +92,7 @@ console.log(results)
                         id="sortByDateOrder"
                         data-testid="sortByDateOrder"
                         defaultValue=""
-                        onChange={onSortChange}
+                        onChange={onSortByDateChange}
                     >
                         <option disabled value="">-</option>
                         {Object.keys(sortByDateOptions).map(optionKey =>

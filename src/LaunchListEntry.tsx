@@ -16,10 +16,19 @@ const LaunchListEntry: React.FC<Props> = ({entry}) => {
 
     return (<>
         <div className="App-list-entry-title" data-testid="entryContainer">
-            <h4 className="App-title-clickable" onClick={onEntryClicked}>
+            <h4
+                className="App-list-entry-title-clickable"
+                data-testid="entryName"
+                onClick={onEntryClicked}
+            >
                 {entry.mission_name}
             </h4>
-            <h5>{entry.launch_date_utc}</h5>
+            <h5
+                className="App-list-entry-date"
+                data-testid="entryDate"
+            >
+                {entry.launch_date_utc}
+            </h5>
         </div>
         {isDetailVisible && <div className="App-list-entry-body" data-testid="entryBody">
             {missionPatch && <img width="10%" src={missionPatch} alt={`${entry.mission_name} Mission Patch`}/>}
