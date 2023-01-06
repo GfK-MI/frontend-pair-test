@@ -9,7 +9,7 @@ type Props = {
     limit?: number
 }
 
-export const sortOptions: SortOptions = {
+export const sortByNameOptions: SortOptions = {
     'mission_name-asc' : {
         order: 'asc',
         property: 'mission_name',
@@ -19,6 +19,19 @@ export const sortOptions: SortOptions = {
         order: 'desc',
         property: 'mission_name',
         name: 'Mission Name (desc)',
+    },
+};
+
+export const sortByDateOptions: SortOptions = {
+    'launch_date-asc' : {
+        order: 'asc',
+        property: 'launch_date_utc',
+        name: 'Launch Date (asc)',
+    },
+    'launch_date-desc': {
+        order: 'desc',
+        property: 'launch_date_utc',
+        name: 'Launch Date (desc)',
     },
 };
 
@@ -38,7 +51,7 @@ console.log(results)
 
 
     const onSortChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-        setSortRequest(sortOptions[event.target.value]);
+        setSortRequest(sortByNameOptions[event.target.value]);
         console.log(event.target.value)
     }
 
@@ -48,9 +61,8 @@ console.log(results)
             <p>List of past SpaceX launches</p>
             <div className="App-list-controls">
                 <div className="App-list-control">
-                    <label htmlFor="sortOrder">
-                        Sort by
-                    </label>
+                    Sort by
+                    &nbsp;
                     <select
                         name="sortOrder"
                         id="sortOrder"
@@ -59,14 +71,32 @@ console.log(results)
                         onChange={onSortChange}
                     >
                         <option disabled value="">-</option>
-                        {Object.keys(sortOptions).map(optionKey =>
+                        {Object.keys(sortByNameOptions).map(optionKey =>
                             <option
-                                key={`${sortOptions[optionKey].property}-${sortOptions[optionKey].order}`}
-                                value={`${sortOptions[optionKey].property}-${sortOptions[optionKey].order}`}
+                                key={`${sortByNameOptions[optionKey].property}-${sortByNameOptions[optionKey].order}`}
+                                value={`${sortByNameOptions[optionKey].property}-${sortByNameOptions[optionKey].order}`}
                             >
-                                {sortOptions[optionKey].name}
+                                {sortByNameOptions[optionKey].name}
                             </option>
                         )}
+                    </select>
+                    &nbsp;
+                    <select
+                        name="sortByDateOrder"
+                        id="sortByDateOrder"
+                        data-testid="sortByDateOrder"
+                        defaultValue=""
+                        onChange={onSortChange}
+                    >
+                        <option disabled value="">-</option>
+                        {Object.keys(sortByDateOptions).map(optionKey =>
+                            <option
+                                key={`${sortByDateOptions[optionKey].property}-${sortByDateOptions[optionKey].order}`}
+                                value={`${sortByDateOptions[optionKey].property}-${sortByDateOptions[optionKey].order}`}
+                        >
+                            {sortByDateOptions[optionKey].name}
+                        </option>
+                    )}
                     </select>
                 </div>
                 <div className="App-list-control">

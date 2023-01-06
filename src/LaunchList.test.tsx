@@ -2,7 +2,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 
 import { LaunchData } from './types';
-import LaunchList, { sortOptions } from './LaunchList';
+import LaunchList, { sortByNameOptions } from './LaunchList';
 
 import { fetchPastLaunches } from './api';
 import userEvent from '@testing-library/user-event';
@@ -107,14 +107,14 @@ test('sort by dropdown dropdown contains mission name (descending)', async () =>
 
 test('changing sort by dropdown changes sort order', async () => {
   render(<LaunchList />);
-  const dropdownElement = await screen.findByRole('combobox');
+  const dropdownElements = await screen.findAllByRole('combobox');
 
   act(() => {
-    userEvent.selectOptions(dropdownElement, 'mission_name-asc');
+    userEvent.selectOptions(dropdownElements[0], 'mission_name-asc');
   });
 
   expect(fetchPastLaunches).toBeCalledTimes(2);
-  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortOptions[0])
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[0])
 });
 
 test('renders sort by name dropdown', async () => {
