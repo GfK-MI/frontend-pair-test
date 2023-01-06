@@ -2,7 +2,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 
 import { LaunchData } from './types';
-import LaunchList, { sortByNameOptions } from './LaunchList';
+import LaunchList, { sortByDateOptions, sortByNameOptions } from './LaunchList';
 
 import { fetchPastLaunches } from './api';
 import userEvent from '@testing-library/user-event';
@@ -105,7 +105,7 @@ test('sort by dropdown dropdown contains mission name (descending)', async () =>
   expect(option.value).toBe('mission_name-desc');
 });
 
-test('changing sort by dropdown changes sort order', async () => {
+test('changing sort by name dropdown calls fetchPastLaunches correctly', async () => {
   render(<LaunchList />);
   const dropdownElements = await screen.findAllByRole('combobox');
 
@@ -113,7 +113,7 @@ test('changing sort by dropdown changes sort order', async () => {
     userEvent.selectOptions(dropdownElements[0], 'mission_name-asc');
   });
 
-  expect(fetchPastLaunches).toBeCalledTimes(2);
+  expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
   expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[0])
 });
 
@@ -136,6 +136,18 @@ test('sort by date dropdown dropdown contains launch date (descending)', async (
 
   const option = await screen.getByRole('option', { name: 'Launch Date (desc)' }) as HTMLOptionElement;
   expect(option.value).toBe('launch_date_utc-desc');
+});
+
+test('changing sort by date dropdown calls fetchPastLaunches correctly', async () => {
+  render(<LaunchList />);
+  const dropdownElements = await screen.findAllByRole('combobox');
+
+  act(() => {
+    userEvent.selectOptions(dropdownElements[1], 'launch_date_utc-asc');
+  });
+
+  expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[0])
 });
 
 test('renders search input', async () => {
