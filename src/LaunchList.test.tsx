@@ -91,7 +91,7 @@ test('renders sort by name dropdown', async () => {
   expect(dropdownElement).toBeInTheDocument();
 });
 
-test('sort by dropdown dropdown contains mission name (ascending)', async () => {
+test('sort by name dropdown dropdown contains mission name (ascending)', async () => {
   render(<LaunchList/>);
 
   const option = await screen.getByRole('option', { name: 'Mission Name (asc)' }) as HTMLOptionElement;
@@ -122,6 +122,13 @@ test('renders sort by name dropdown', async () => {
 
   const dropdownElement = await (await screen.findByText('Launch Date (desc)'));
   expect(dropdownElement).toBeInTheDocument();
+});
+
+test('sort by date dropdown dropdown contains launch date (ascending)', async () => {
+  render(<LaunchList/>);
+
+  const option = await screen.getByRole('option', { name: 'Launch Date (asc)' }) as HTMLOptionElement;
+  expect(option.value).toBe('launch_date_utc-asc');
 });
 
 test('renders search input', async () => {
