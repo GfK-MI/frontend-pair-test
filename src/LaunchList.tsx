@@ -49,9 +49,16 @@ console.log(results)
         retrieveListItems();
     }, [limit, sortRequest]);
 
+    const resetSelect = (id: string) => {
+        const select = document.getElementById(id) as HTMLSelectElement;
+
+        select.value = select.options[0].value;
+    }
+
 
     const onSortByNameChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
         setSortRequest(sortByNameOptions[event.target.value]);
+        resetSelect('sortByDateOrder');
         console.log(event.target.value)
     }
 
@@ -70,13 +77,13 @@ console.log(results)
                     Sort by
                     &nbsp;
                     <select
-                        name="sortOrder"
-                        id="sortOrder"
-                        data-testid="sortOrder"
+                        name="sortByNameOrder"
+                        id="sortByNameOrder"
+                        data-testid="sortByNameOrder"
                         defaultValue=""
                         onChange={onSortByNameChange}
                     >
-                        <option disabled value="">-</option>
+                        <option disabled value="">(mission name)</option>
                         {Object.keys(sortByNameOptions).map(optionKey =>
                             <option
                                 key={`${sortByNameOptions[optionKey].property}-${sortByNameOptions[optionKey].order}`}
@@ -94,7 +101,7 @@ console.log(results)
                         defaultValue=""
                         onChange={onSortByDateChange}
                     >
-                        <option disabled value="">-</option>
+                        <option disabled value="">(launch date)</option>
                         {Object.keys(sortByDateOptions).map(optionKey =>
                             <option
                                 key={`${sortByDateOptions[optionKey].property}-${sortByDateOptions[optionKey].order}`}
