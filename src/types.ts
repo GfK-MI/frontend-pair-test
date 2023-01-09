@@ -22,7 +22,7 @@ export interface LaunchData {
 
 export type SortOption = 'asc' | 'desc';
 
-export type SortProperty = 'mission_name';
+export type SortProperty = 'mission_name' | 'launch_date_utc';
 
 export type SortObject = {
     order: SortOption,
