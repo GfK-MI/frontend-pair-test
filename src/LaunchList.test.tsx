@@ -108,13 +108,14 @@ test('sort by dropdown dropdown contains mission name (descending)', async () =>
 test('changing sort by name dropdown calls fetchPastLaunches correctly', async () => {
   render(<LaunchList />);
   const dropdownElements = await screen.findAllByRole('combobox');
+  const optionsMember = 'mission_name-asc';
 
   act(() => {
-    userEvent.selectOptions(dropdownElements[0], 'mission_name-asc');
+    userEvent.selectOptions(dropdownElements[0], optionsMember);
   });
 
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
-  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[0])
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[optionsMember])
 });
 
 test('changing sort by name resets sort by date', async () => {
@@ -156,13 +157,14 @@ test('sort by date dropdown dropdown contains launch date (descending)', async (
 test('changing sort by date dropdown calls fetchPastLaunches correctly', async () => {
   render(<LaunchList />);
   const dropdownElements = await screen.findAllByRole('combobox');
+  const optionsMember = 'launch_date_utc-asc';
 
   act(() => {
-    userEvent.selectOptions(dropdownElements[1], 'launch_date_utc-asc');
+    userEvent.selectOptions(dropdownElements[1], optionsMember);
   });
 
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
-  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[0])
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[optionsMember])
 });
 
 test('changing sort by date resets sort by name', async () => {
