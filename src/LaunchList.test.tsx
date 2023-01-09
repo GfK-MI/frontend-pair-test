@@ -117,6 +117,21 @@ test('changing sort by name dropdown calls fetchPastLaunches correctly', async (
   expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[0])
 });
 
+test('changing sort by name resets sort by date', async () => {
+  render(<LaunchList/>);
+  const dropdownElements = await screen.findAllByRole('combobox');
+
+  act(() => {
+    userEvent.selectOptions(dropdownElements[1], 'launch_date_utc-asc');
+    userEvent.selectOptions(dropdownElements[0], 'mission_name-asc');
+  });
+
+  const launchSelect = dropdownElements[1] as HTMLSelectElement;
+  expect(launchSelect.value).toBe('');
+});
+
+// TODO: Check changing name dropdown resets date dropdown
+
 test('renders sort by name dropdown', async () => {
   render(<LaunchList/>);
 
