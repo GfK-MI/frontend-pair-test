@@ -187,3 +187,18 @@ test('renders search input', async () => {
   expect(searchInput).toBeInTheDocument();
 });
 
+test('changing value of search field calls fetchPastLaunches correctly', async () => {
+  render(<LaunchList />);
+  const searchInput = await screen.findByRole('textbox');
+  const searchString = 'test string';
+  const searchByStringOptions = sortByNameOptions['mission_name-asc'];
+  searchByStringOptions.searchFilter = searchString;
+
+  act(() => {
+    userEvent.type(searchInput, searchString);
+  });
+
+  expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, searchByStringOptions)
+});
+
