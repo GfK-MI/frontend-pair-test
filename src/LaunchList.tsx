@@ -59,13 +59,12 @@ console.log(results)
     const onSortByNameChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
         setSortRequest(sortByNameOptions[event.target.value]);
         resetSelect('sortByDateOrder');
-        console.log(event.target.value)
     }
 
 
     const onSortByDateChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
         setSortRequest(sortByDateOptions[event.target.value]);
-        console.log(event.target.value)
+        resetSelect('sortByNameOrder');
     }
 
     return (
