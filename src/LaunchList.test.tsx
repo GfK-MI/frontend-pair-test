@@ -215,3 +215,10 @@ test('changing value of search field calls fetchPastLaunches correctly if a sort
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
   expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[optionsMember], searchString);
 });
+
+test('dates are formatted as dd/mm/yyyy format in the user\'s timezone', async () => {
+  render(<LaunchList />);
+  const firstDate = await screen.findAllByTestId('entryDate');
+
+  expect(firstDate[0].innerHTML).toEqual('15/11/2020, 00:49:00 GMT');
+})
