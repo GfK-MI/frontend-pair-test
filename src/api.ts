@@ -1,7 +1,6 @@
 import { LaunchData, SearchFilter, SortObject } from './types';
 
 export async function fetchPastLaunches(limit: number, sortRequest: SortObject | undefined, searchFilter: SearchFilter | undefined): Promise<LaunchData[]> {
-console.log(sortRequest, searchFilter)
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     let sortRequestString = '';

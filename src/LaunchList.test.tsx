@@ -131,8 +131,6 @@ test('changing sort by name resets sort by date', async () => {
   expect(launchSelect.value).toBe('');
 });
 
-// TODO: Check changing name dropdown resets date dropdown
-
 test('renders sort by name dropdown', async () => {
   render(<LaunchList/>);
 

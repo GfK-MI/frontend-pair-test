@@ -43,7 +43,7 @@ const LaunchList: React.FC<Props> = ({limit = 10}) => {
     React.useEffect(() => {
         const retrieveListItems = async () => {
             const results = await fetchPastLaunches(limit, sortRequest, searchRequest);
-console.log(results)
+
             setEntries(results);
         };
 
