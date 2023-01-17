@@ -13,6 +13,7 @@ const LaunchListEntry: React.FC<Props> = ({entry}) => {
 
     const payload = entry?.rocket?.second_stage?.payloads[0]?.payload_type;
     const missionPatch = entry?.links?.mission_patch_small;
+    const missionDate = new Intl.DateTimeFormat('en-gb', { dateStyle: 'short', timeStyle: 'long'}).format(new Date(entry.launch_date_utc));
 
     return (<>
         <div className="App-list-entry-title" data-testid="entryContainer">
@@ -27,7 +28,7 @@ const LaunchListEntry: React.FC<Props> = ({entry}) => {
                 className="App-list-entry-date"
                 data-testid="entryDate"
             >
-                {entry.launch_date_utc}
+                {missionDate}
             </h5>
         </div>
         {isDetailVisible && <div className="App-list-entry-body" data-testid="entryBody">
