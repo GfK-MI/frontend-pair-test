@@ -199,3 +199,19 @@ test('changing value of search field calls fetchPastLaunches correctly', async (
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
   expect(fetchPastLaunches).toHaveBeenCalledWith(10, undefined, searchString);
 });
+
+test('changing value of search field calls fetchPastLaunches correctly if a sort field has been set', async () => {
+  render(<LaunchList />);
+  const searchInput = await screen.findByRole('textbox');
+  const searchString = 'test string';
+  const dropdownElements = await screen.findAllByRole('combobox');
+  const optionsMember = 'launch_date_utc-asc';
+
+  act(() => {
+    userEvent.selectOptions(dropdownElements[1], optionsMember);
+    userEvent.type(searchInput, searchString);
+  });
+
+  expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[optionsMember], searchString);
+});
