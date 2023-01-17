@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler } from "react";
 
-import { LaunchData, SortObject, SortOptions } from './types';
+import { LaunchData, SearchFilter, SortObject, SortOptions } from './types';
 
 import { fetchPastLaunches } from './api';
 import LaunchListEntry from './LaunchListEntry';
@@ -37,17 +37,18 @@ export const sortByDateOptions: SortOptions = {
 
 const LaunchList: React.FC<Props> = ({limit = 10}) => {
     const [entries, setEntries] = React.useState<LaunchData[]>([]);
-    const [sortRequest, setSortRequest] = React.useState<SortObject | undefined>();
+    const [sortRequest, setSortRequest] = React.useState<SortObject>();
+    const [searchRequest, setSearchRequest] = React.useState<SearchFilter>();
 
     React.useEffect(() => {
         const retrieveListItems = async () => {
-            const results = await fetchPastLaunches(limit, sortRequest);
+            const results = await fetchPastLaunches(limit, sortRequest, searchRequest);
 console.log(results)
             setEntries(results);
         };
 
         retrieveListItems();
-    }, [limit, sortRequest]);
+    }, [limit, sortRequest, searchRequest]);
 
     const resetSelect = (id: string) => {
         const select = document.getElementById(id) as HTMLSelectElement;
@@ -65,6 +66,10 @@ console.log(results)
     const onSortByDateChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
         setSortRequest(sortByDateOptions[event.target.value]);
         resetSelect('sortByNameOrder');
+    }
+
+    const onSearchByNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+        setSearchRequest(event.target.value)
     }
 
     return (
@@ -120,6 +125,7 @@ console.log(results)
                         id="textSearch"
                         placeholder="Type mission name..."
                         data-testid="textSearch"
+                        onChange={onSearchByNameChange}
                     />
                 </div>
             </div>

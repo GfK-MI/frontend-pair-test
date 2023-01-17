@@ -115,7 +115,7 @@ test('changing sort by name dropdown calls fetchPastLaunches correctly', async (
   });
 
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
-  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[optionsMember])
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByNameOptions[optionsMember], undefined);
 });
 
 test('changing sort by name resets sort by date', async () => {
@@ -164,7 +164,7 @@ test('changing sort by date dropdown calls fetchPastLaunches correctly', async (
   });
 
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
-  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[optionsMember])
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, sortByDateOptions[optionsMember], undefined);
 });
 
 test('changing sort by date resets sort by name', async () => {
@@ -191,14 +191,11 @@ test('changing value of search field calls fetchPastLaunches correctly', async (
   render(<LaunchList />);
   const searchInput = await screen.findByRole('textbox');
   const searchString = 'test string';
-  const searchByStringOptions = sortByNameOptions['mission_name-asc'];
-  searchByStringOptions.searchFilter = searchString;
 
   act(() => {
     userEvent.type(searchInput, searchString);
   });
 
   expect(fetchPastLaunches).toBeCalledTimes(2); //Once on load, once on change
-  expect(fetchPastLaunches).toHaveBeenCalledWith(10, searchByStringOptions)
+  expect(fetchPastLaunches).toHaveBeenCalledWith(10, undefined, searchString);
 });
-

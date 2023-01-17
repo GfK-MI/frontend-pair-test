@@ -30,4 +30,6 @@ export type SortObject = {
     name: string,
 };
 
+export type SearchFilter = string;
+
 export type SortOptions = { [key: string]: SortObject };

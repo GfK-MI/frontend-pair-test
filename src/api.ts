@@ -1,13 +1,19 @@
-import { LaunchData, SortObject } from './types';
+import { LaunchData, SearchFilter, SortObject } from './types';
 
-export async function fetchPastLaunches(limit: number, sortRequest: SortObject | undefined): Promise<LaunchData[]> {
+export async function fetchPastLaunches(limit: number, sortRequest: SortObject | undefined, searchFilter: SearchFilter | undefined): Promise<LaunchData[]> {
+console.log(sortRequest, searchFilter)
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     let sortRequestString = '';
 
-    if (sortRequest) {
-        sortRequestString = `, sort: "${sortRequest.property}", order: "${sortRequest.order}"`;
-    }
+    sortRequest && searchFilter ?
+        sortRequestString = `, find: { mission_name: "${searchFilter}" }, sort: "${sortRequest.property}", order: "${sortRequest.order}"`
+    : sortRequest ?
+        sortRequestString = `, sort: "${sortRequest.property}", order: "${sortRequest.order}"`
+    : searchFilter ?
+        sortRequestString = `, find: { mission_name: "${searchFilter}" }`
+    :
+    sortRequestString = '';
 
     const body = JSON.stringify({
         query: `{
