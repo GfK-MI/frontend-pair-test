@@ -44,10 +44,10 @@ export enum CameraName {
 }
 
 export interface Camera {
-    id: number,
-    name: CameraName,
-    rover_id: number,
-    full_name: string,
+  id: number,
+  name: CameraName,
+  rover_id: number,
+  full_name: string,
 }
 
 export enum Status {
