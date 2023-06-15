@@ -1,21 +1,68 @@
-export interface StagePayload {
-    payload_type: string;
+
+export interface Photo {
+  id: 4476
+  img_src: string,
+  earth_date: string,
+  sol: 3
+  camera: Camera,
+  rover: {
+    id: number,
+    landing_date: string,
+    launch_date: string,
+    name: string,
+    status: Status,
+  }
 }
 
-export interface Rocket {
-    rocket_name: string;
-    second_stage: {
-        payloads: StagePayload[];
-        block: number;
-    }
+export interface PhotoDetail {
+  cameras: CameraName[],
+  earth_date: string,
+  sol: number,
+  total_photos: number,
+}
+export interface Manifest {
+  landing_date: string,
+  launch_date: string,
+  max_date: string,
+  max_sol: number,
+  name: string,
+  photos: PhotoDetail[],
+  status: Status,
+  total_photos: number,
 }
 
-export interface LaunchData {
-    rocket: Rocket,
-    launch_date_utc: string;
-    mission_name: string;
-    id: string;
-    links: {
-        mission_patch_small: string | null;
-    }
+export enum CameraName {
+  FHAZ = 'FHAZ',
+  RHAZ = 'RHAZ',
+  MAST = 'MAST',
+  CHEMCAM	= 'CHEMCAM',
+  MAHLI = 'MAHLI',
+  MARDI = 'MARDI',
+  NAVCAM = 'NAVCAM',
+  PANCAM = 'PANCAM',
+  MINITES = 'MINITES',
+}
+
+export interface Camera {
+    id: number,
+    name: CameraName,
+    rover_id: number,
+    full_name: string,
+}
+
+export enum Status {
+  ACTIVE = 'active',
+  COMPLETE = 'complete',
+}
+
+export interface RoverData {
+  id: number,
+  name: string,
+  landing_date: string,
+  launch_date: string,
+  status: Status,
+  max_sol: number,
+  max_date: string,
+  total_photos: number,
+  cameras: Camera[],
 }

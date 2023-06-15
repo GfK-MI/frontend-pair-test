@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { LaunchData } from './types';
-import LaunchList from './LaunchList';
+import { RoverData } from './types';
+import RoverList from './RoverList';
 
 import { fetchPastLaunches } from './api';
 jest.mock('./api');
 
-const mockLaunches: LaunchData[] = [
+const mockLaunches: RoverData[] = [
   {
     "rocket": {
       "rocket_name": "Falcon 9",
@@ -72,7 +72,7 @@ beforeEach(() => {
 })
 
 test('renders past launches', async () => {
-  render(<LaunchList/>);
+  render(<RoverList/>);
 
   const titleElement = screen.getByText("Past Launches");
   expect(titleElement).toBeInTheDocument();
@@ -84,14 +84,14 @@ test('renders past launches', async () => {
 });
 
 test('renders sort by dropdown', async () => {
-  render(<LaunchList/>);
+  render(<RoverList/>);
 
   const dropdownElement = await screen.findByRole('combobox');
   expect(dropdownElement).toBeInTheDocument();
 });
 
 test('renders search input', async () => {
-  render(<LaunchList/>);
+  render(<RoverList/>);
 
   const searchInput = await screen.findByRole('textbox');
   expect(searchInput).toBeInTheDocument();
