@@ -2,16 +2,17 @@
 
 For this pair programming session you're required to extend this app to add a couple of features as well as finding and fixing existing issues with it.
 
-It consumes **SpaceX's API**. Available here: https://api.spacex.land/graphql/.
+It consumes **NASA's Mars Photo API**. Available here: https://api.nasa.gov/#MarsPhotos
 
 ## Requirements
 
 You are required to implement the following requirements.
 
-- [ ] Add support for sorting by mission name (asc/desc).
-- [ ] Add support for sorting by mission launch date (asc/desc).
-- [ ] Add support for filtering missions by name.
+- [ ] Add loading indicator for when Rover list is waiting for API response.
+- [ ] Add pagination of Mission Day Photos.
+- [ ] Add support for filtering Mission Cameras based on Mission Day selected
 - [ ] Update dates to use `dd/mm/yyyy` format in the user's TZ.
+- [ ] Add validation to Mission Day input to prevent user selecting invalid Mission Day.
 
 ## Useful links
 - [React Testing Library Cheatsheet](https://testing-library.com/docs/react-testing-library/cheatsheet/)
