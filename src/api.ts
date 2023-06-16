@@ -1,8 +1,8 @@
 import { CameraName, Manifest, Photo, RoverData } from './types';
 
-const baseUrl = 'https://api.nasa.gov/mars-photos/api/v1';
-const apiKey = 'Qnj7RDjOMR8QZslgPoulob2Bj8BBdXqah18CjXLg';
-const headers = new Headers({'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
+export const baseUrl = 'https://api.nasa.gov/mars-photos/api/v1';
+export const apiKey = 'Qnj7RDjOMR8QZslgPoulob2Bj8BBdXqah18CjXLg';
+export const headers = new Headers({'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
 
 export async function fetchRovers(): Promise<RoverData[]> {
   const url = `${baseUrl}/rovers?api_key=${apiKey}`;

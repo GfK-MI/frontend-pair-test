@@ -30,13 +30,13 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
 
   const fetchPhotos = React.useCallback(async () => {
     const { page, missionDay, camera } = state;
-    setState({...state, photos: []})
+    setState({...state, photos: []});
     const result = await fetchRoverMissionPhotos({rover, missionDay, page, camera});
     setState({...state, photos: result});
   }, [state, rover, setState]);
   
   const missionDayChangeHandler = React.useCallback((event) => {
-    const missionDay = event.target.value;
+    const missionDay = Number(event.target.value);
     setState({...state, missionDay});
   }, [state, setState]);
   
@@ -49,8 +49,10 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
   return (
     <div className="App-Mission-Photos">
       <h5>Mission Photos Day by Day</h5>
-      <label htmlFor="missionDay">Select Mission Day</label>
+      <label htmlFor="missionDay">
+      Select Mission Day
       <input 
+        id="missionDay" 
         name="missionDay" 
         type="number" 
         // NB: we can remove the min/max attributes if we want to include as task in test  
@@ -59,6 +61,7 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
         defaultValue="1" 
         onChange={missionDayChangeHandler}
       />
+      </label>
       <label htmlFor="roverCamera">
         Select Camera
       </label>
@@ -72,7 +75,7 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
         {
           missionCameras?.map(
             (camera) => 
-              <option id={camera.name} value={camera.name}>{camera.full_name}</option>
+              <option key={camera.name} value={camera.name}>{camera.full_name}</option>
             )
         }
       </select>

@@ -1,9 +1,9 @@
 
 export interface Photo {
-  id: 4476
+  id: number,
   img_src: string,
   earth_date: string,
-  sol: 3
+  sol: number,
   camera: Camera,
   rover: {
     id: number,

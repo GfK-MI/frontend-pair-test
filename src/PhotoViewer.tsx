@@ -32,7 +32,7 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({photos}) => {
       <ul>
         {
           photos.map((photo, index) => 
-          <li id={photo.id.toString()}  data-index={index} onClick={clickPhotoListHandler}>
+          <li key={photo.id}  data-index={index} onClick={clickPhotoListHandler}>
             <div className="App-Photo-wrp">
               <div className="App-Photo-wrp-img">
                 <img alt={photo.camera.full_name} src={photo.img_src} />

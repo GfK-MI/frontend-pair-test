@@ -34,7 +34,7 @@ const RoverManifest: React.FC<ManifestProps> = ({rover, cameras}) => {
     <section className="App-Manifest">
         <h3>{manifest.name}</h3>
         <ul>
-          <li id="launchDate">Launch Date: <span></span>{manifest.launch_date}</li>
+          <li id="launchDate">Launch Date: {manifest.launch_date}</li>
           <li id="landingDate">Landing Date: {manifest.landing_date}</li>
           <li id="status">Mission Status: {manifest.status}</li>
           <li id="missionDays">Number of Mission Days on Mars: {manifest.max_sol}</li>
