@@ -2,16 +2,16 @@ import React from 'react';
 
 import './App.css';
 
-import LaunchList from './LaunchList';
+import RoverList from './RoverList';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h3>SpaceX Launch Xplorer</h3>
+        <h3>NASA Mars Mission Photos</h3>
       </header>
       <main>
-        <LaunchList/>
+        <RoverList/>
       </main>
     </div>
   );

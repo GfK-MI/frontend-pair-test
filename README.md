@@ -2,16 +2,27 @@
 
 For this pair programming session you're required to extend this app to add a couple of features as well as finding and fixing existing issues with it.
 
-It consumes **SpaceX's API**. Available here: https://api.spacex.land/graphql/.
+It consumes **NASA's Mars Photo API**. Available here: https://api.nasa.gov/#mars-rover-photos
 
 ## Requirements
 
 You are required to implement the following requirements.
 
-- [ ] Add support for sorting by mission name (asc/desc).
-- [ ] Add support for sorting by mission launch date (asc/desc).
-- [ ] Add support for filtering missions by name.
-- [ ] Update dates to use `dd/mm/yyyy` format in the user's TZ.
+- [ ] Add loading indicator for when Rover list is waiting for API response.
+  * Currently on App load an AI request is made to get the list of Rovers to populate the 'Select Rover' options
+  * While this request is loading add some indication in the UI so the user knows that the App is not ready
+- [ ] Add pagination of Mission Day Photos.
+  * Currently the API request for Mission Day Photos is hard coded to page 1
+  * Update the previous/next page buttons to pass the page number to the API request
+  * Update the page indicator to display the correct page number and total pages - 25 per page (total photos for the day is in the Manifest photos list)
+  * Enable/Disable previous/next buttons
+- [ ] Add support for filtering Mission Cameras based on Mission Day selected
+  * Currently the list of cameras in the 'Select Camera' control is the full list for the Rover
+  * Each mission day has a short list of cameras that have photos for that day - (available in the Manifest photos list)
+  * Filter the available cameras to select based on the value in the 'Select Mission Day' input
+- [ ] Add validation to Mission Day input to prevent user selecting invalid Mission Day.
+  * Currently the user can input any numeric value to 'Select Mission Day'
+  * Update the input to prevent/notify a user from selecting an invalid value. This would be a mission day (sol) where there are no photos (available in the Manifest photos list)
 
 ## Useful links
 - [React Testing Library Cheatsheet](https://testing-library.com/docs/react-testing-library/cheatsheet/)
