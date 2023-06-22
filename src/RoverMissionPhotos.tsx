@@ -11,7 +11,6 @@ export type MissionPhotosProps  = {
 
 type MissionPhotosState  = {
   photos: Photo[],
-  page: number,
   missionDay: number,
   camera: CameraName | undefined,
   photoListOffset: number,
@@ -21,7 +20,6 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
   const [state, setState] = React.useState<MissionPhotosState>(
     {
       missionDay: 1,
-      page: 1,
       photos: [],
       camera: undefined,
       photoListOffset: 0,
@@ -29,9 +27,9 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
   );
 
   const fetchPhotos = React.useCallback(async () => {
-    const { page, missionDay, camera } = state;
+    const { missionDay, camera } = state;
     setState({...state, photos: []});
-    const result = await fetchRoverMissionPhotos({rover, missionDay, page, camera});
+    const result = await fetchRoverMissionPhotos({rover, missionDay, camera});
     setState({...state, photos: result});
   }, [state, rover, setState]);
   
@@ -54,10 +52,7 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
       <input 
         id="missionDay" 
         name="missionDay" 
-        type="number" 
-        // NB: we can remove the min/max attributes if we want to include as task in test  
-        min="1"
-        max={max_sol}
+        type="number"
         defaultValue="1" 
         onChange={missionDayChangeHandler}
       />
@@ -84,7 +79,7 @@ const RoverMissionPhotos: React.FC<MissionPhotosProps> = ({missionManifest, miss
         fetchPhotos();
       }} >Fetch Mission Photos</button>
       <hr/>
-      Page {state.page} <br />
+      Page 1 <br />
       <button disabled>{'<< Previous Page'}</button> <button >{'Next Page >>'}</button>
       <hr/>
       <PhotoViewer photos={state.photos}/>

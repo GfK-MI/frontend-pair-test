@@ -112,7 +112,7 @@ test('calls api with correct parameters', async () => {
     expect(fetchRoverMissionPhotos).toBeCalledWith({
       rover, 
       missionDay: 2, 
-      page: 1, camera: selectedCamera 
+      camera: selectedCamera,
     });
   });
 
